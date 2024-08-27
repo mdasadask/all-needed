@@ -114,6 +114,8 @@ $dataLoadSql = "SELECT `asterisk`.`crm_poison`.*, `divisions`.`name` AS `divisio
 	* Second jekhane _ pabe tar ager gula niye asbe. uporer example theke a_INBOUND pabo.
 	*  
 	* SELECT SUBSTRING_INDEX("www.w3schools.com", ".", -1); com pabo 
+	*
+	* SELECT SUBSTRING('SQL Tutorial', 1, 3) AS ExtractString; get SQL
 	* 
 	*/
 	<?php 
@@ -153,3 +155,32 @@ $dataLoadSql = "SELECT `asterisk`.`crm_poison`.*, `divisions`.`name` AS `divisio
 	*/
 	$row = mysqli_fetch_assoc(mysqli_query($conn, "SELECT extension, caller_code, number_dialed FROM call_log WHERE RIGHT(number_dialed, 11) = '{$phone}' ORDER BY start_time DESC LIMIT 1"));
 	echo $row['extension'];
+
+11. SET FOREIGN_KEY_CHECKS=0;
+	TRUNCATE TABLE table;
+	SET FOREIGN_KEY_CHECKS=1;
+
+12. select one webhook from all page
+	$webhook_sql = "WITH productData AS (
+    SELECT 
+			id,
+			product_id,
+			msg,
+			status,
+			ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY id ASC) AS RowNum
+		FROM 
+			webhook
+		WHERE 
+			status = 0
+	)
+	SELECT 
+		id,
+		product_id,
+		msg,
+		status
+	FROM 
+		productData
+	WHERE 
+		RowNum IN(1,2,3,4,5)";
+
+13. 
